@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, Types } = require("mongoose");
 const moment = require("moment");
 
 const ReactionSchema = new Schema(
@@ -47,6 +47,7 @@ const ThoughtSchema = new Schema(
     username: {
       type: String,
       required: true,
+      ref: "User",
     },
     reactions: [ReactionSchema],
   },
@@ -59,7 +60,7 @@ const ThoughtSchema = new Schema(
   }
 );
 
-// get total reactions
+// get the length of the thought's reactions array
 ThoughtSchema.virtual("reactionCount").get(function () {
   return this.reactions.length;
 });
